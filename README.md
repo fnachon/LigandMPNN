@@ -29,7 +29,29 @@ conda create -n ligandmpnn_env python=3.11
 pip3 install -r requirements.txt
 ```
 ### For Mac users
-Create a specific environment with the 
+To run on GPU on a Mac (Apple Silicon) and the "Metal Performance Shaders", install the mps-enabled version with:
+
+```
+git clone https://github.com/fnachon/LigandMPNN.git
+cd LigandMPNN
+bash get_model_params.sh "./model_params"
+```
+
+Create a new specific conda environment for the Mac:
+```
+conda create --name LigandMPNN -f Mac_environment.yaml
+```
+
+The side chain packing function uses Von Mises distribution. The Von Mises distribution implemented in Pytorch makes sampling in double precision (Float64). Sampling is always done in double precision internally to avoid a hang in _rejection_sample() for small values of the concentration, which starts to happen for single precision around 1e-4. But double precision is unsupported by mps, thus returning an error. Pytorch 2.7.0 is expected in late April 2025 and should fix this issue. 
+
+A workaround is to modify von_mises.py in the PyTorch site-packages to return Float32 type.
+
+In the file
+ ```/miniconda3/envs/LigandMPNN/lib/python3.11/site-packages/torch/distributions/von_mises.py```
+
+Replace ```torch.double``` by ```torch.float32``` in lines 147 and 151.
+
+
 
 ### Main differences compared with [ProteinMPNN](https://github.com/dauparas/ProteinMPNN) code
 - Input PDBs are parsed using [Prody](https://pypi.org/project/ProDy/) preserving protein residue indices, chain letters, and insertion codes. If there are missing residues in the input structure the output fasta file won't have added `X` to fill the gaps. The script outputs .fasta and .pdb files. It's recommended to use .pdb files since they will hold information about chain letters and residue indices.
