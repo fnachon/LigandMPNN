@@ -38,8 +38,9 @@ bash get_model_params.sh "./model_params"
 ```
 
 Create a new specific conda environment for the Mac:
+
 ```
-conda create --name LigandMPNN --file Mac_environment.yaml
+conda env create -f Mac_environment.yaml
 ```
 
 The side chain packing function uses Von Mises distribution. The Von Mises distribution implemented in Pytorch makes sampling in double precision (Float64). Sampling is always done in double precision internally to avoid a hang in rejection_sample() for small values of the concentration, which starts to happen for single precision around 1e-4. But double precision is unsupported by mps, thus returning an error. Pytorch 2.7.0 is expected in late April 2025 and should fix this issue. 
