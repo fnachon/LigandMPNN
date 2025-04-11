@@ -7,6 +7,8 @@ dependencies:
   - biopython=1.79
   - scipy=1.12.0
   - pytorch=2.5.1
+  - ml-collections=6.0.2
+  - dm-tree=0.1.9
   - pip
   - pip:
         - prody

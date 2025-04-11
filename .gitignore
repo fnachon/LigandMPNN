@@ -129,3 +129,4 @@ dmypy.json
 .pyre/
 /model_params
 .DS_Store
+/outputs_perso
