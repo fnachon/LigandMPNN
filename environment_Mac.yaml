@@ -1,0 +1,13 @@
+name: LigandMPNN
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11.11
+  - numpy=1.23.5
+  - biopython=1.79
+  - scipy=1.12.0
+  - pytorch=2.5.1
+  - pip
+  - pip:
+        - prody
+
