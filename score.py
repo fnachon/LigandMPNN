@@ -28,7 +28,7 @@ def main(args) -> None:
     torch.manual_seed(seed)
     random.seed(seed)
     np.random.seed(seed)
-    device = torch.device("cuda" if (torch.cuda.is_available()) else "cpu")
+    device = torch.device('mps' if torch.backends.mps.is_available() else 'cuda' if torch.cuda.is_available() else 'cpu') # add mps support
     folder_for_outputs = args.out_folder
     base_folder = folder_for_outputs
     if base_folder[-1] != "/":
