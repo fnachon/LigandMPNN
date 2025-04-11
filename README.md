@@ -28,6 +28,8 @@ For example to make a new conda environment for LigandMPNN run:
 conda create -n ligandmpnn_env python=3.11
 pip3 install -r requirements.txt
 ```
+### For Mac users
+Create a specific environment with the 
 
 ### Main differences compared with [ProteinMPNN](https://github.com/dauparas/ProteinMPNN) code
 - Input PDBs are parsed using [Prody](https://pypi.org/project/ProDy/) preserving protein residue indices, chain letters, and insertion codes. If there are missing residues in the input structure the output fasta file won't have added `X` to fill the gaps. The script outputs .fasta and .pdb files. It's recommended to use .pdb files since they will hold information about chain letters and residue indices.
