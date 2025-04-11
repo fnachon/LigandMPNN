@@ -29,7 +29,7 @@ conda create -n ligandmpnn_env python=3.11
 pip3 install -r requirements.txt
 ```
 ### For Mac users
-To run on GPU on a Mac (Apple Silicon) and the "Metal Performance Shaders", install the mps-enabled version with:
+To run on the GPU on a Mac (Apple Silicon) using "Metal Performance Shaders", install the mps-enabled version with:
 
 ```
 git clone https://github.com/fnachon/LigandMPNN.git
