@@ -35,7 +35,7 @@ def main(args) -> None:
     torch.manual_seed(seed)
     random.seed(seed)
     np.random.seed(seed)
-    device = torch.device("cuda" if (torch.cuda.is_available()) else "cpu")
+    device = torch.device('mps' if torch.backends.mps.is_available() else 'cuda' if torch.cuda.is_available() else 'cpu') # add mps support
     folder_for_outputs = args.out_folder
     base_folder = folder_for_outputs
     if base_folder[-1] != "/":
@@ -64,7 +64,7 @@ def main(args) -> None:
     else:
         print("Choose one of the available models")
         sys.exit()
-    checkpoint = torch.load(checkpoint_path, map_location=device)
+    checkpoint = torch.load(checkpoint_path, map_location=device, weights_only=True)
     if args.model_type == "ligand_mpnn":
         atom_context_num = checkpoint["atom_context_num"]
         ligand_mpnn_use_side_chain_context = args.ligand_mpnn_use_side_chain_context
@@ -112,7 +112,7 @@ def main(args) -> None:
             num_mix=3,
         )
 
-        checkpoint_sc = torch.load(args.checkpoint_path_sc, map_location=device)
+        checkpoint_sc = torch.load(args.checkpoint_path_sc, map_location=device, weights_only=True)
         model_sc.load_state_dict(checkpoint_sc["model_state_dict"])
         model_sc.to(device)
         model_sc.eval()
